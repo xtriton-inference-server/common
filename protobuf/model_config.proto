@@ -179,6 +179,13 @@ message ModelInstanceGroup
     //@@       settings.
     //@@
     KIND_MODEL = 3;
+
+    //@@    .. cpp:enumerator:: Kind::KIND_XPU = 4
+    //@@
+    //@@       This instance group represents instances that must run on the
+    //@@       XPU.
+    //@@
+    KIND_XPU = 4;
   }
 
   //@@
