@@ -1,5 +1,4 @@
-<!--
-# Copyright (c) 2020, NVIDIA CORPORATION. All rights reserved.
+# Copyright 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -24,28 +23,21 @@
 # OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
 
-[![License](https://img.shields.io/badge/License-BSD3-lightgrey.svg)](https://opensource.org/licenses/BSD-3-Clause)
+cmake_minimum_required (VERSION 3.18)
 
-# Triton Inference Server Common
+#
+# Unit tests
+#
+include(FetchContent)
 
-Common source, scripts and utilities shared across all Triton
-repositories.
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/9406a60c7839052e4944ea4dbc8344762a89f9bd.zip
+)
+FetchContent_MakeAvailable(googletest)
 
-This repo is not typically built directly but is instead included in
-the build of other repos. To build directly first install the required
-dependencies.
+if (TRITON_COMMON_ENABLE_JSON)
+    add_subdirectory(triton_json triton_json)
+endif()
 
-```
-$ apt-get install rapidjson-dev
-```
-
-Use cmake 3.17 or later to build and install in a local directory.
-
-```
-$ mkdir build
-$ cd build
-$ cmake -DCMAKE_INSTALL_PREFIX:PATH=`pwd`/install ..
-$ make install
-```

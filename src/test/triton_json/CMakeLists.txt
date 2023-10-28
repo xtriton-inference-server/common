@@ -1,5 +1,4 @@
-<!--
-# Copyright (c) 2020, NVIDIA CORPORATION. All rights reserved.
+# Copyright 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -24,28 +23,31 @@
 # OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
 
-[![License](https://img.shields.io/badge/License-BSD3-lightgrey.svg)](https://opensource.org/licenses/BSD-3-Clause)
+cmake_minimum_required (VERSION 3.18)
+add_executable(triton-json-test triton_json_test.cc ../../error.cc)
+target_link_libraries(
+  triton-json-test
+	GTest::gtest
+  GTest::gtest_main)
 
-# Triton Inference Server Common
+target_include_directories(
+  triton-json-test
+  PUBLIC
+    $<INSTALL_INTERFACE:include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../../include>
+    $<BUILD_INTERFACE:${RAPIDJSON_INCLUDE_DIRS}>
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
 
-Common source, scripts and utilities shared across all Triton
-repositories.
+set_target_properties(
+  triton-json-test
+  PROPERTIES
+    OUTPUT_NAME triton_json_test
+)
 
-This repo is not typically built directly but is instead included in
-the build of other repos. To build directly first install the required
-dependencies.
-
-```
-$ apt-get install rapidjson-dev
-```
-
-Use cmake 3.17 or later to build and install in a local directory.
-
-```
-$ mkdir build
-$ cd build
-$ cmake -DCMAKE_INSTALL_PREFIX:PATH=`pwd`/install ..
-$ make install
-```
+install(
+    TARGETS triton-json-test
+    RUNTIME DESTINATION bin
+  )
