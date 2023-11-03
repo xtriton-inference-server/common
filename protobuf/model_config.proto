@@ -179,6 +179,13 @@ message ModelInstanceGroup
     //@@       settings.
     //@@
     KIND_MODEL = 3;
+
+    //@@    .. cpp:enumerator:: Kind::KIND_XPU = 4
+    //@@
+    //@@       This instance group represents instances that must run on the
+    //@@       XPU.
+    //@@
+    KIND_XPU = 4;
   }
 
   //@@
@@ -256,6 +263,15 @@ message ModelInstanceGroup
   //@@     available GPUs.
   //@@
   repeated int32 gpus = 3;
+
+  //@@  .. cpp:var:: int32 xpus (repeated)
+  //@@
+  //@@     XPU(s) where instances should be available. For each XPU listed,
+  //@@     'count' instances of the model will be available. Setting 'xpus'
+  //@@     to empty (or not specifying at all) is eqivalent to listing all
+  //@@     available XPUs.
+  //@@
+  repeated int32 xpus = 10;
 
   //@@  .. cpp:var:: SecondaryDevice secondary_devices (repeated)
   //@@
@@ -941,6 +957,16 @@ message ModelOptimizationPolicy
     //@@       and no parameters are required.
     //@@
     repeated Accelerator cpu_execution_accelerator = 2;
+
+    //@@    .. cpp:var:: Accelerator xpu_execution_accelerator (repeated)
+    //@@
+    //@@       The preferred execution provider to be used if the model instance
+    //@@       is deployed on XPU.
+    //@@
+    //@@       For XTCL Runtime backend, possible value is "xtcl" as name,
+    //@@       and no parameters are required.
+    //@@
+    repeated Accelerator xpu_execution_accelerator = 3;
   }
 
   //@@
