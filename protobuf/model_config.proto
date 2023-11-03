@@ -957,6 +957,16 @@ message ModelOptimizationPolicy
     //@@       and no parameters are required.
     //@@
     repeated Accelerator cpu_execution_accelerator = 2;
+
+    //@@    .. cpp:var:: Accelerator xpu_execution_accelerator (repeated)
+    //@@
+    //@@       The preferred execution provider to be used if the model instance
+    //@@       is deployed on XPU.
+    //@@
+    //@@       For XTCL Runtime backend, possible value is "xtcl" as name,
+    //@@       and no parameters are required.
+    //@@
+    repeated Accelerator xpu_execution_accelerator = 3;
   }
 
   //@@
